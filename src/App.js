@@ -8,12 +8,20 @@ import AsideMenu from "./components/asidemenu";
 import Footer from "./components/footer";
 
 function App() {
+  const [items, setItems] = React.useState([]);
+  React.useEffect(function () {
+    (async function () {
+      const response = await fetch("https://bwacharity.fly.dev/items");
+      const { nodes } = await response.json();
+      setItems(nodes);
+    })();
+  }, []);
   return (
     <>
       <Header />
       <Hero />
       <Browse />
-      <Arrived />
+      <Arrived items={items} />
       <Clients />
       <AsideMenu />
       <Footer />
